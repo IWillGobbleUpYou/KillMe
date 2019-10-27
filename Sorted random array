@@ -1,41 +1,73 @@
 #include <iostream>
+#include <string>
 #include <ctime>
 using namespace std;
- 
- 
+
+void entered_array(int size)	//.функция заполнения массива
+{
+	int num;
+	int *array = new int[size];
+	for (int i = 0; i < size; i++)
+	{
+		num = rand() % 10 + 1;
+		array[i] = num;
+		cout << array[i] << " ";
+	}
+}
+
+void sorted_array(int* array, int size)	//.неработающая функция сортировки
+{
+	int num;
+	for (int i = 0; i < size - 1; i++)
+	{
+		for (int j = 0; j < size - i - 1; j++)
+		{
+			if (array[i] > array[i + 1])
+			{
+				num = array[j];
+				array[j] = array[j + 1];
+				array[j + 1] = num;
+			}
+		}
+	}
+	for (int i = 0; i < size; i++)
+	{
+		cout << array[i] << " ";
+	}
+}
 int main()
 {
-	int size;//1, size2;
-int* N = new int[size];//1][size2]; // динамический массив твой
-srand (time(NULL));
-int num;
-cout<<"Enter array size ";
-cin>>size;//1>>size2;
-cout<<"Your array: "<<endl;
-for(int i = 0; i < size; i++)
-{
-//	for(int j = 0; j < size2; j++){
-   num = rand() % 20 + 1; // случайные числа от 0 до 20
-N[i] = num;
-	cout<<N[i]<<" ";
-}
-cout<<endl<<"Your sorted array: "<<endl;
-//for (int i = 0; i < razmer; i++){
-	for (int i = 0; i < size - 1; i++) {
-       for (int j = 0; j < size - i - 1; j++) {
-            if (N[j] > N[j + 1]) {
-                // меняем элементы местами
-                num = N[j];
-                N[j] = N[j + 1];
-                N[j + 1] = num;
-            }
-        }
-    }
-for(int i = 0; i < size; i++) {
-	cout << N[i] << " " ;
+	int size;
+	int *array = new int[size];
+	srand(time(NULL));
+	cout << "Enter array size "<<endl<<"(For exit from program enter array size 0)	";
+	cin >> size;
+	while (size > 0)	//.если размер массива больше 0 - работаем
+	{
+		entered_array(size);	//.вызов функции заполнения
+		cout << endl;
+		cout << endl
+			 << "Your sorted array: " << endl;
+		sorted_array(array, size);	//.вызов не работающей функции
+		cout << endl
+			 << endl;
+		cout << "Enter size your next array (For exit enter 0)	";
+		cin >> size;
 	}
-cout << endl;
-delete []N;
-    system("pause");
-    return 0;
+	while (size < 0)	//.если размер меньше 0 - выводим сообщение об ошибочке
+	{
+		cout << "You entered wrong size array" << endl;
+		cout<<"Enter array size again ";
+		cin >> size;
+		cout<<endl;
+	}
+	if (size == 0)	//.ну, а если размер массива 0, собственно, до свидания
+	{
+		cout << "Good Bay" << endl;
+		system("pause");
+	}
+	cout << endl;
+	delete[] array;
+	system("pause");
+	return 0;
 }
